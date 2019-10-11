@@ -122,6 +122,7 @@ def clear_neo4j():
     driver = connect_neo4j()
     with driver.session() as session:
         session.run("MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r;")
+    driver.close()
 
 
 # Clear both databases and set constraints on mongo unique
