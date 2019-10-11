@@ -1,5 +1,5 @@
 # Uses conda brain-struct-db
-from pymongo import MongoClient
+from pymongo import MongoClient, TEXT as mongoText
 from pymongo.errors import DuplicateKeyError
 import json
 from neo4j import GraphDatabase
@@ -36,7 +36,7 @@ def insert_mongo(collection, data):
     data['key'] = first + ''.join(word.capitalize() for word in rest)
     try:
         result = collection.insert_one(data)
-        print('Inserted: ({})'.format(result.inserted_id))
+        print('Inserted: {} (id:{})'.format(data['name'], result.inserted_id))
     except DuplicateKeyError:
         print('Failed to insert {}: already exists.'.format(data['name']))
 
@@ -112,8 +112,15 @@ def init_load_db(json_file):
 
 # Clear both databases and set constraints on mongo unique
 def init_dbs():
-    pass
+    # Clear MongoDB
+    circ = connect_mongo()
+    circ.drop()
+    circ.create_index([('key', mongoText)], unique=True)
 
+    # Clear Neo4j
+    driver = connect_neo4j()
+    with driver.session() as session:
+        session.run("MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r;")
 
 if __name__ == '__main__':
     # load_json_mongo('networks.json')
