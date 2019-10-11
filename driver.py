@@ -1,7 +1,9 @@
 # Uses conda brain-struct-db
 from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 import json
 from neo4j import GraphDatabase
+import re
 
 
 def load_json(file_name):
@@ -29,19 +31,17 @@ def connect_mongo():
 
 # insert single entry into mongodb
 def insert_mongo(collection, data):
-    result = collection.insert_one(data)
-    print('Inserted: ({})'.format(result.inserted_id))
+    # create key
+    first, *rest = re.split('_| |-|,|', data['name'])
+    data['key'] = first + ''.join(word.capitalize() for word in rest)
+    try:
+        result = collection.insert_one(data)
+        print('Inserted: ({})'.format(result.inserted_id))
+    except DuplicateKeyError:
+        print('Failed to insert {}: already exists.'.format(data['name']))
 
 
 # Load things into both db first time from json file
-def init_load_db(json_file):
-    data = load_json(json_file)
-    connection = connect_mongo()
-    for net in data:
-        # TODO: Load Neo4j
-        insert_mongo(connection, net)
-
-
 def connect_neo4j():
     uri = "bolt://localhost:7687"
     # uri = "bolt://localhost:7474"
@@ -100,6 +100,19 @@ def load_dict_neo4j(dic):
             session.write_transaction(create_network_relation, struct, name)
     driver.close()
     print('\tEntered in {} structures.'.format(len(structures)))
+
+
+def init_load_db(json_file):
+    data = load_json(json_file)
+    connection = connect_mongo()
+    for net in data:
+        # TODO: Load Neo4j
+        insert_mongo(connection, net)
+
+
+# Clear both databases and set constraints on mongo unique
+def init_dbs():
+    pass
 
 
 if __name__ == '__main__':
