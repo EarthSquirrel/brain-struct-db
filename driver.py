@@ -131,6 +131,15 @@ def init_dbs():
     clear_neo4j()
 
 
+def rebuild_neo4j():
+    client, circ = connect_mongo()
+    driver = connect_neo4j()
+    for c in circ.find({}, {"name": 1, "structures": 1}):
+        load_dict_neo4j(driver, c)
+    client.close()
+    driver.close()
+
+
 if __name__ == '__main__':
     # load_json_mongo('networks.json')
     for data in load_json('networks.json'):
