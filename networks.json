@@ -1,0 +1,74 @@
+[
+{
+    "name": "default-mode network",
+    "alieses": ["task-negative network"],
+    "structures": ["precuneus cingulate", "posterior cingulate", "angular gyrus", "ventral-anterior medial frontal", "middle temporal gyrus", "mmedial temporal cortex"],
+    "function": "",
+    "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7"],
+    "oddThings": [
+        "posterior-inferior parietal lobule (angular gyrus): Both in paper, used angular gyrus"
+    ]
+},
+{
+    "name": "task-positive network",
+    "structures": ["anterior insula", "frontal operculum", "supplementary motor", "dorsal medial frontal lobe", "lateral premotor cortex", "anterior medial frontal gyrus", "superior parietal lobule", "anterior inferior paretal lobule", "lateral inferior posterior temporal gyrus"],
+    "function": "",
+    "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7"],
+    "oddThings": [
+        "A lot of them...."
+    ]
+},
+{
+    "name": "reward pathway",
+    "alieses": ["mesolimbic dopamine system"],
+    "structures": ["ventral tegmental area", "nucleus accumbens", "prefrontal cortex", "amygdala", "hipppocampus", "hypothalamus", "locus coeruleus", "dorsal raphe"],
+    "function": "",
+    "citations": ["https://neuroscience.mssm.edu/nestler/brainRewardpathways.html"]
+},
+{
+    "name": "hate circut",
+    "alieses": [],
+    "structures": ["medial frontal gyrus", "putamen", "premotor cortex", "frontal pole", "medial insula", "insula", "premotor cortex", "fronto-medial gyrus", "superior frontal gyrus"],
+    "function": "",
+    "citations": ["https://doi.org/10.1371/journal.pone.0003556"],
+    "oddThings": [
+        "Removed a lot of right and bilateral distinctions..."
+    ]
+},
+{
+    "name": "sexual preference",
+    "alieses": [],
+    "structures": ["anterior hypothalamus", "preoptic hypothalamus", "anterior thalamus", "mediodorsal thalamus", "septal area", "perirhinal parahippocampus", "dentate gyrus"],
+    "function": "",
+    "citations": ["https://doi.org/10.1371/journal.pone.0003556"]
+},
+{
+    "name": "serotonergic raphe nuclei",
+    "alieses": [],
+    "structures": ["raphe nuclei", "pons", "medulla", "telencephalon", "diencephalon", "limbic system", "cerebellum", "spinal cord"],
+    "function": "excitatory and inhibitory, active during arousal, mood regulation",
+    "citations": ["BIOH 425 notes"]
+},
+{
+    "name": "Noradrenergic Locus Coeruleus",
+    "alieses": [],
+    "structures": ["locus coeruleus", "rostral pons", "telencephalon", "diencephalon", "limbic system", "cerebellum", "spinal cord"],
+    "function": "excitatory and inhibitory, active during arousal",
+    "citations": ["BIOH 425 notes"]
+},
+{
+    "name": "Dopaminergic Ventral Tegmental Nuclei",
+    "alieses": [],
+    "structures": ["ventral tegmental nuclei", "midbrain", "anterior telencephalon", "diencephalon", "limbic system"],
+    "function": "excitatory and inhibitory, active during arousal, mood regulation, reinforcement/reward",
+    "citations": ["BIOH 425 notes"]
+},
+{
+    "name": "Cholinergic Nuclei",
+    "alieses": [],
+    "structures": ["cholinergic nuclei", "rostral pons", "diencephalon", "telencephalon", "diencephalon", "limbic system"],
+    "function": "excitatory and inhibitory, active during arousal, learning, attention",
+    "citations": ["BIOH 425 notes"]
+}
+]
+
