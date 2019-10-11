@@ -110,17 +110,23 @@ def init_load_db(json_file):
         insert_mongo(connection, net)
 
 
-# Clear both databases and set constraints on mongo unique
-def init_dbs():
-    # Clear MongoDB
+def clear_mongo():
     circ = connect_mongo()
     circ.drop()
     circ.create_index([('key', mongoText)], unique=True)
 
-    # Clear Neo4j
+
+def clear_neo4j():
     driver = connect_neo4j()
     with driver.session() as session:
         session.run("MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r;")
+
+
+# Clear both databases and set constraints on mongo unique
+def init_dbs():
+    clear_mongo()
+    clear_neo4j()
+
 
 if __name__ == '__main__':
     # load_json_mongo('networks.json')
