@@ -1,0 +1,107 @@
+# Uses conda brain-struct-db
+from pymongo import MongoClient
+import json
+from neo4j import GraphDatabase
+
+
+def load_json(file_name):
+    with open(file_name) as json_file:
+        content = json.load(json_file)
+
+    # print(content)
+    print("Read in json file with {} enteries.".format(len(content)))
+
+    return content
+
+
+# connect to mongodb
+def connect_mongo():
+    client = MongoClient('localhost', 27017)
+    # client = MongoClient('mongodb://localhost:27017')
+
+    # will automaticaly create if doesn't exist
+    db = client['circuitsDB']
+
+    circuits = db.circuits
+
+    return circuits
+
+
+# insert single entry into mongodb
+def insert_mongo(collection, data):
+    result = collection.insert_one(data)
+    print('Inserted: ({})'.format(result.inserted_id))
+
+
+def load_json_mongo(json_file):
+    data = load_json(json_file)
+    connection = connect_mongo()
+    for net in data:
+        print(type(net))
+        insert_mongo(connection, net)
+
+
+def connect_neo4j():
+    uri = "bolt://localhost:7687"
+    # uri = "bolt://localhost:7474"
+    driver = GraphDatabase.driver(uri, auth=("neo4j", "password"))
+    return driver
+
+
+def create_neo4j_struct(tx, struct):
+    tx.run("MERGE (s:Structure {name: $struct});", struct=struct)
+
+
+def create_neo4j_network(tx, network):
+    tx.run("MERGE (n:Network {name: $network});", network=network)
+
+
+def create_network_relation(tx, struct, network):
+    tx.run("MATCH (s: Structure {name: $struct}), (n:Network {name: $network})"
+           "MERGE (s)-[r:part_of]->(n);", struct=struct, network=network)
+
+
+# Relates two structues using an arrow with netowork name
+# SOooo many relations
+def add_struct_relation(tx, struct1, struct2, network):
+    qry = "MATCH (s1:Structure {name: $struct1}), (s2:Structure "
+    qry += "{name: $struct2}) "
+    qry += "MERGE (s1)-[r:{}]->(s2);".format(network)
+    """
+    tx.run("MATCH (s1:Structure {name: $struct1}), (s2:Structure "
+           "{name: $struct2}) CREATE (s1)-[r:$network]->(s2);",
+           struct1 = struct1, struct2 = struct2, network = network)
+    """
+
+    """
+    # Code in addition part
+    name = '_'.join(dic['name'].split(' '))
+    name = '_'.join(name.split('-'))
+    for i, struct1 in enumerate(structures):
+        for j in range(i+1, len(structures)):
+            # print('{} {} {}'.format(struct1, structures[j], name))
+            session.write_transaction(add_struct_relation, struct1,
+                                      structures[j], name)
+    """
+    tx.run(qry, struct1=struct1, struct2=struct2)
+
+
+def load_dict_neo4j(dic):
+    driver = connect_neo4j()
+    structures = dic['structures']
+    name = dic['name'].lower()
+    print('Entering {} into Neo4j'.format(name))
+    with driver.session() as session:
+        session.write_transaction(create_neo4j_network, name)
+        for struct in structures:
+            struct = struct.lower()
+            session.write_transaction(create_neo4j_struct, struct)
+            session.write_transaction(create_network_relation, struct, name)
+    driver.close()
+    print('\tEntered in {} structures.'.format(len(structures)))
+
+
+if __name__ == '__main__':
+    # load_json_mongo('networks.json')
+    for data in load_json('networks.json'):
+        load_dict_neo4j(data)
