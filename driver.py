@@ -87,8 +87,7 @@ def add_struct_relation(tx, struct1, struct2, network):
     tx.run(qry, struct1=struct1, struct2=struct2)
 
 
-def load_dict_neo4j(dic):
-    driver = connect_neo4j()
+def load_dict_neo4j(driver, dic):
     structures = dic['structures']
     name = dic['name'].lower()
     print('Entering {} into Neo4j'.format(name))
@@ -98,16 +97,17 @@ def load_dict_neo4j(dic):
             struct = struct.lower()
             session.write_transaction(create_neo4j_struct, struct)
             session.write_transaction(create_network_relation, struct, name)
-    driver.close()
     print('\tEntered in {} structures.'.format(len(structures)))
 
 
-def init_load_db(json_file):
+def json_load_dbs(json_file):
     data = load_json(json_file)
     connection = connect_mongo()
+    driver = connect_neo4j()
     for net in data:
-        # TODO: Load Neo4j
         insert_mongo(connection, net)
+        load_dict_neo4j(driver, net)
+    driver.close()
 
 
 def clear_mongo():
