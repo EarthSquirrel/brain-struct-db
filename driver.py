@@ -33,11 +33,12 @@ def insert_mongo(collection, data):
     print('Inserted: ({})'.format(result.inserted_id))
 
 
-def load_json_mongo(json_file):
+# Load things into both db first time from json file
+def init_load_db(json_file):
     data = load_json(json_file)
     connection = connect_mongo()
     for net in data:
-        print(type(net))
+        # TODO: Load Neo4j
         insert_mongo(connection, net)
 
 
