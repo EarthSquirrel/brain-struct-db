@@ -26,7 +26,7 @@ def connect_mongo():
 
     circuits = db.circuits
 
-    return circuits
+    return client, circuits
 
 
 # insert single entry into mongodb
@@ -102,18 +102,20 @@ def load_dict_neo4j(driver, dic):
 
 def json_load_dbs(json_file):
     data = load_json(json_file)
-    connection = connect_mongo()
+    client, collection = connect_mongo()
     driver = connect_neo4j()
     for net in data:
-        insert_mongo(connection, net)
+        insert_mongo(collection, net)
         load_dict_neo4j(driver, net)
     driver.close()
+    client.close()
 
 
 def clear_mongo():
-    circ = connect_mongo()
+    client, circ = connect_mongo()
     circ.drop()
     circ.create_index([('key', mongoText)], unique=True)
+    client.close()
 
 
 def clear_neo4j():
