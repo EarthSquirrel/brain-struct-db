@@ -5,7 +5,7 @@
     "structures": ["precuneus cingulate cortex", "posterior cingulate cortex", "angular gyrus", "ventral-anterior medial frontal", "middle temporal gyrus", "medial temporal cortex", "inferior parietal cortex", "superior medial frontal cortex", "anterior cingulate cortex"],
     "function": "It is a resting state network of structures that are more active when someone is not engaged attentionally.",
     "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7", "doi:10.1371/journal.pone.0044428", "BIOH 425 book"],
-    "oddThings": [
+    "other": [
         "posterior-inferior parietal lobule (angular gyrus): Both in paper, used angular gyrus"
     ]
 },
@@ -14,8 +14,8 @@
     "structures": ["anterior insula", "frontal operculum", "supplementary motor", "dorsal medial frontal lobe", "lateral premotor cortex", "anterior medial frontal gyrus", "superior parietal lobule", "anterior inferior paretal lobule", "lateral inferior posterior temporal gyrus"],
     "function": "Increased activity while completing task. The rate of increase may vary with tasks.",
     "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7"],
-    "oddThings": [
-        "A lot of them...."
+    "other": [
+        "A lot of odd things that probably make this not very accurate...."
     ]
 },
 {
@@ -24,7 +24,7 @@
     "structures": ["ventral tegmental area", "nucleus accumbens", "prefrontal cortex", "amygdala", "hippocampus", "hypothalamus", "locus coeruleus", "dorsal raphe"],
     "function": "Activated in response to natural rewards (food, sex, social interaction, etc.)",
     "citations": ["https://neuroscience.mssm.edu/nestler/brainRewardpathways.html"],
-    "oddThings": ["It sounded like this was one of many reward pathways"]
+    "other": ["It sounded like this was one of many reward pathways"]
 },
 {
     "name": "hate circut",
@@ -32,7 +32,7 @@
     "structures": ["medial frontal gyrus", "putamen", "premotor cortex", "frontal pole", "medial insula", "insula", "premotor cortex", "fronto-medial gyrus", "superior frontal gyrus"],
     "function": "Active when an individual viewed a face of a person whom they hate. Activity in certian areas varied with intensity of hate.",
     "citations": ["https://doi.org/10.1371/journal.pone.0003556"],
-    "oddThings": [
+    "other": [
         "Removed a lot of right and bilateral distinctions..."
     ]
 },
@@ -84,7 +84,7 @@
     "structures": ["visual cortex"],
     "function": "Resting state visual functional connectivity",
     "citations": ["doi:10.1371/journal.pone.0044428"],
-    "oddThings": ["The visual module covers the entire span of the visua cortex and includes both primary and secondary corticies. What are those primary and secondary corticies listed out?"]
+    "other": ["The visual module covers the entire span of the visua cortex and includes both primary and secondary corticies. What are those primary and secondary corticies listed out?"]
 },
 {
     "name": "sensory/motor module",
@@ -99,7 +99,7 @@
     "structures": ["caudate", "globus pallidus", "putamen", "thalamus", "medial temporal lobe", "temporal pole", "parahippocampul gyrus", "hippocampus", "amygdala", "cerebellum"],
     "function": "Resting state functional connectivity",
     "citations": ["doi:10.1371/journal.pone.0044428"],
-    "oddThings": ["'Putamen, and thalamus. It also extended into the medial temporal lobe, temporal pole, parahippocampal gyrus, hippocampus, amygdala and cerebellum. Interestingly, these brain regions have not been consistently classified into one component by ICA.'"]
+    "other": ["'Putamen, and thalamus. It also extended into the medial temporal lobe, temporal pole, parahippocampal gyrus, hippocampus, amygdala and cerebellum. Interestingly, these brain regions have not been consistently classified into one component by ICA.'"]
 }
 ]
 
