@@ -2,9 +2,9 @@
 {
     "name": "default-mode network",
     "alieses": ["task-negative network"],
-    "structures": ["precuneus cingulate", "posterior cingulate", "angular gyrus", "ventral-anterior medial frontal", "middle temporal gyrus", "mmedial temporal cortex"],
-    "function": "",
-    "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7"],
+    "structures": ["precuneus cingulate cortex", "posterior cingulate cortex", "angular gyrus", "ventral-anterior medial frontal", "middle temporal gyrus", "medial temporal cortex", "inferior parietal cortex", "superior medial frontal cortex", "anterior cingulate cortex"],
+    "function": "It is a resting state network of structures that are more active when someone is not engaged attentionally.",
+    "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7", "doi:10.1371/journal.pone.0044428", "BIOH 425 book"],
     "oddThings": [
         "posterior-inferior parietal lobule (angular gyrus): Both in paper, used angular gyrus"
     ]
@@ -12,7 +12,7 @@
 {
     "name": "task-positive network",
     "structures": ["anterior insula", "frontal operculum", "supplementary motor", "dorsal medial frontal lobe", "lateral premotor cortex", "anterior medial frontal gyrus", "superior parietal lobule", "anterior inferior paretal lobule", "lateral inferior posterior temporal gyrus"],
-    "function": "",
+    "function": "Increased activity while completing task. The rate of increase may vary with tasks.",
     "citations": ["DOI: 10.1016/B978-0-12-800948-2.00001-7"],
     "oddThings": [
         "A lot of them...."
@@ -21,15 +21,15 @@
 {
     "name": "reward pathway",
     "alieses": ["mesolimbic dopamine system"],
-    "structures": ["ventral tegmental area", "nucleus accumbens", "prefrontal cortex", "amygdala", "hipppocampus", "hypothalamus", "locus coeruleus", "dorsal raphe"],
-    "function": "",
+    "structures": ["ventral tegmental area", "nucleus accumbens", "prefrontal cortex", "amygdala", "hippocampus", "hypothalamus", "locus coeruleus", "dorsal raphe"],
+    "function": "Activated in response to natural rewards (food, sex, social interaction, etc.)",
     "citations": ["https://neuroscience.mssm.edu/nestler/brainRewardpathways.html"]
 },
 {
     "name": "hate circut",
     "alieses": [],
     "structures": ["medial frontal gyrus", "putamen", "premotor cortex", "frontal pole", "medial insula", "insula", "premotor cortex", "fronto-medial gyrus", "superior frontal gyrus"],
-    "function": "",
+    "function": "Active when an individual viewed a face of a person whom they hate. Activity in certian areas varied with intensity of hate.",
     "citations": ["https://doi.org/10.1371/journal.pone.0003556"],
     "oddThings": [
         "Removed a lot of right and bilateral distinctions..."
@@ -39,7 +39,7 @@
     "name": "sexual preference",
     "alieses": [],
     "structures": ["anterior hypothalamus", "preoptic hypothalamus", "anterior thalamus", "mediodorsal thalamus", "septal area", "perirhinal parahippocampus", "dentate gyrus"],
-    "function": "",
+    "function": "Structures involved in deciding preferred sexual activities or types of sexual partners",
     "citations": ["https://doi.org/10.1371/journal.pone.0003556"]
 },
 {
