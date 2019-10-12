@@ -23,7 +23,9 @@ These queries are run using the individual database interfaces. The MongoDB data
 
 ##### Neo4J
 * Get structure and networks it is part of
-        $ match (s:Structure {name: 'anterior insula'}) -[r] - (n) return s, n, r;
+        
+        match (s:Structure {name: 'anterior insula'}) -[r] - (n) return s, n, r;
+
 * Get all the general structures given part of their name
         match (s:Structure) where s.name contains 'insula' return s;
 * Get general structures and networks they're part of
