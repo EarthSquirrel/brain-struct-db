@@ -12,7 +12,7 @@ This database uses both MongoDB and Neo4J to store data with MongoDB being the a
 4. Run rebuild\_neo4j() to rebuild the graph in Neo4J from MongoDB.
 
 ## Example
-Here is an example using the neuromodulatory systems, because they had higher connectivity than most networks did. More examples can be seen in example-networks.
+Here is an example using the neuromodulatory systems, because they had higher connectivity than most networks did. More examples can be seen in example-networks. &nbsp;
 ![](example-networks/neuromodulatory-systems.svg)
 
 ## Disclaimer
