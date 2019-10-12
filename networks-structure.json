@@ -4,7 +4,7 @@
     "structures": ["list", "of", "structures"],
     "function": "Summary of the function of network",
     "citations": ["DOI 1", "DOI 2"],
-    "oddThings": ["things", "to", "be", "noted"]
+    "other": ["things", "to", "be", "noted"]
 }
 
 {
@@ -12,6 +12,7 @@
     "alieses": [],
     "structures": [],
     "function": "",
-    "citations": []
+    "citations": [],
+    "other": []
 }
 
