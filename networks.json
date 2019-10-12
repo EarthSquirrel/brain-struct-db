@@ -19,11 +19,12 @@
     ]
 },
 {
-    "name": "reward pathway",
-    "alieses": ["mesolimbic dopamine system"],
+    "name": "mesolimbic dopamine system",
+    "alieses": ["a reward pathway"],
     "structures": ["ventral tegmental area", "nucleus accumbens", "prefrontal cortex", "amygdala", "hippocampus", "hypothalamus", "locus coeruleus", "dorsal raphe"],
     "function": "Activated in response to natural rewards (food, sex, social interaction, etc.)",
-    "citations": ["https://neuroscience.mssm.edu/nestler/brainRewardpathways.html"]
+    "citations": ["https://neuroscience.mssm.edu/nestler/brainRewardpathways.html"],
+    "oddThings": ["It sounded like this was one of many reward pathways"]
 },
 {
     "name": "hate circut",
