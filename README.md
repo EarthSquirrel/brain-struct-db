@@ -17,8 +17,6 @@ I did all of my implementation on a linux machine. To install MongoDB, I used [t
 ## Example Network
 Here is an example using the neuromodulatory systems, because they had higher connectivity than most networks did. More examples can be seen in example-networks. &nbsp; <br>
 ![](example-networks/neuromodulatory-systems.svg)
-Here is an example using the neuromodulatory systems, because they had higher connectivity than most networks did. More examples can be seen in example-networks. &nbsp; <br>
-![](example-networks/neuromodulatory-systems.svg)
 
 ## Disclaimer
 This is a very rough idea/draft for a course project. Most of the networks were entered by me skimming papers looking for structures to enter. For simplicity, I ignored if activity was increased or decreased as well as which hemisphere(s) activity was occurring in if they were given. There is no guarantee of accuracy. 
