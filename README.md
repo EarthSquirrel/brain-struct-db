@@ -24,30 +24,49 @@ These queries are run using the individual database interfaces. The MongoDB data
 ##### Neo4J
 * Get structure and networks it is part of
         
-        match (s:Structure {name: 'anterior insula'}) -[r] - (n) return s, n, r;
+        $ match (s:Structure {name: 'anterior insula'}) -[r] - (n) return s, n, r;
 
 * Get all the general structures given part of their name
+        
         match (s:Structure) where s.name contains 'insula' return s;
+
 * Get general structures and networks they're part of
+
         match (s:Structure) where s.name contains 'insula' match (s) - [r] - (n:Network) return s, r, n;
+
 * Get network and its associated structures
+
         match (n:Network {name: 'present moment pathway'}) - [r] - (s:Structure) return n, s, r;
+
 * Get all things connected (long distance) to a structure
-      match (s1:Structure {name: 'insula'}), (s2:Structure) where s1.name <> s2.name match p = allShortestPaths((s1) - [r*] - (s2)) return p;
+
+        match (s1:Structure {name: 'insula'}), (s2:Structure) where s1.name <> s2.name match p = allShortestPaths((s1) - [r*] - (s2)) return p;
+
 * Return networks that share a common structure with given network
+
         match (n1:Network {name: 'hate circuit'}), (n2:Network) where n1.name <> n2.name match p = allShortestPaths((n1)-[r*]-(n2)) return p;
 
 ##### MongoDB
 * List network name and function
+
         db.circuits.find({}, {_id:0, name: 1, function: 1})
+
 * Find citations for all networks
+
         db.circuits.find({}, {_id:0, name: 1, citations: 1})
+
 * Find all networks containing structure X
+
         db.circuits.find({structures: /^insula/}, {_id: 0, name: 1})
+
 * Find all networks containing structure X, regardless of anterior, posterior etc.
+
         db.circuits.find({structures: /insula/}, {_id: 0, name: 1, structures: 1})
+
 * Find all information for single network
+
         db.circuits.find({name: /present moment pathway/})
+
 
 ## Disclaimer
 This is a very rough idea/draft for a course project. Most of the networks were entered by me skimming papers looking for structures to enter. For simplicity, I ignored if activity was increased or decreased as well as which hemisphere(s) activity was occurring in if they were given. There is no guarantee of accuracy. 
