@@ -69,6 +69,29 @@
     "structures": ["cholinergic nuclei", "rostral pons", "diencephalon", "telencephalon", "diencephalon", "limbic system"],
     "function": "excitatory and inhibitory, active during arousal, learning, attention",
     "citations": ["BIOH 425 notes"]
+},
+{
+    "name": "visual module",
+    "alieses": [],
+    "structures": ["visual cortex"],
+    "function": "Resting state visual functional connectivity",
+    "citations": ["doi:10.1371/journal.pone.0044428"],
+    "oddThings": ["The visual module covers the entire span of the visua cortex and includes both primary and secondary corticies. What are those primary and secondary corticies listed out?"]
+},
+{
+    "name": "sensory/motor module",
+    "alieses": ["motor network"],
+    "structures": ["pre-central gyri", "post-central gyri", "supplementary somatosensory area", "auditory cortex", "posterior insula"],
+    "function": "Resting state functional connectivity",
+    "citations": ["doi:10.1371/journal.pone.0044428"]
+},
+{
+    "name": "basal ganglia module",
+    "alieses": [],
+    "structures": ["caudate", "globus pallidus", "putamen", "thalamus", "medial temporal lobe", "temporal pole", "parahippocampul gyrus", "hippocampus", "amygdala", "cerebellum"],
+    "function": "Resting state functional connectivity",
+    "citations": ["doi:10.1371/journal.pone.0044428"],
+    "oddThings": ["'Putamen, and thalamus. It also extended into the medial temporal lobe, temporal pole, parahippocampal gyrus, hippocampus, amygdala and cerebellum. Interestingly, these brain regions have not been consistently classified into one component by ICA.'"]
 }
 ]
 
