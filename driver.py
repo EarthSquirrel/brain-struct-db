@@ -111,6 +111,26 @@ def json_load_dbs(json_file):
     client.close()
 
 
+def load_mongo_values(name, structs, citations, alieses=[], function="",
+                      other=[]):
+    # Create a dictionary
+    data = {'name': name, 'structures': structs, 'citations': citations}
+    if len(alieses) > 0:
+        data['alieses'] = alieses
+    if len(function) > 0:
+        data['function'] = function
+    if len(other) > 0:
+        data['other'] = other
+
+    # Do database inserting things
+    client, collection = connect_mongo()
+    driver = connect_neo4j()
+    insert_mongo(collection, data)
+    load_dict_neo4j(driver, data)
+    driver.close()
+    client.close()
+
+
 def clear_mongo():
     client, circ = connect_mongo()
     circ.drop()
