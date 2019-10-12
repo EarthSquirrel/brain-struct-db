@@ -43,6 +43,13 @@
     "citations": ["https://doi.org/10.1371/journal.pone.0003556"]
 },
 {
+    "name": "present moment pathway",
+    "alieses": [],
+    "structures": ["anterior insula", "ventral anterior cingulate cortex", "medial prefrontal cortex", "precuneus", "posterior cingulate cortex"],
+    "function": "These structures are active when individuals are practicing mindfullness.",
+    "citations": ["10.1080/17470919.2010.513495 (abstract)"]
+},
+{
     "name": "serotonergic raphe nuclei",
     "alieses": [],
     "structures": ["raphe nuclei", "pons", "medulla", "telencephalon", "diencephalon", "limbic system", "cerebellum", "spinal cord"],
