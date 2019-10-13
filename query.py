@@ -1,7 +1,7 @@
 import driver as meth
 
 
-def get_all_structs():
+def list_all_structs():
     client, circ = meth.connect_mongo()
     data = circ.find({}, {'structures': 1})
     structs = []
@@ -14,7 +14,7 @@ def get_all_structs():
     return structs
 
 
-def get_all_networks():
+def list_all_networks():
     client, circ = meth.connect_mongo()
     data = circ.find({}, {'name': 1})
     networks = []
