@@ -31,8 +31,18 @@ def connect_mongo():
 
 # insert single entry into mongodb
 def insert_mongo(collection, data):
+    # standardize punctuation
+    split = re.split('_|-| ', data['name'].lower())
+    data['name'] = ' '.join([x.capitalize() for x in split])
+    structs = data['structures']
+    new_structs = []
+    for s in structs:
+        s = s.lower()
+        new_structs.append(' '.join([x.capitalize() for x in s.split(' ')]))
+    data['structures'] = new_structs
+
     # create key
-    first, *rest = re.split('_| |-|,|', data['name'])
+    first, *rest = re.split('_| |-|,', data['name'])
     data['key'] = first + ''.join(word.capitalize() for word in rest)
     try:
         result = collection.insert_one(data)
