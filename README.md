@@ -6,7 +6,11 @@ This database uses both MongoDB and Neo4J to store data with MongoDB being the a
 
 ## How to start?
 #### Install Prerequisites 
+###### Linux
 I did all of my implementation on a linux machine. To install MongoDB, I used [this](https://tecadmin.net/install-mongodb-on-ubuntu/) site and to install Neo4J, I used [this](https://datawookie.netlify.com/blog/2016/09/installing-neo4j-on-ubuntu-16.04/) site. Once installed start MongoDB by running _sudo systemctl start mongod_ and start Neo4J by running _sudo service neo4j start_.
+###### Mac
+I installed MongoDB using the command brew install mongodb. I installed Neo4J using the command brew install neo4j. To start the Neo4J server, I ran the command neo4J start.
+
 
 #### Using the Program
 1. Enter the brain structure information into a json file following the structure laid out in networks-structure.json. I put all my networks in networks.json.
