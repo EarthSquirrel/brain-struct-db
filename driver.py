@@ -60,7 +60,8 @@ def insert_mongo(collection, data):
 
 # Load things into both db first time from json file
 def connect_neo4j():
-    uri = "bolt://localhost:7687"
+    uri = "bolt://127.0.0.1:7687"
+    # uri = "bolt://localhost:7687"
     # uri = "bolt://localhost:7474"
     driver = GraphDatabase.driver(uri, auth=("neo4j", "password"))
     return driver
@@ -79,9 +80,31 @@ def create_network_relation(tx, struct, network):
            "MERGE (s)-[r:part_of]->(n);", struct=struct, network=network)
 
 
+def load_dict_neo4j_old(driver, dic):
+    structures = dic['structures']
+    name = dic['name'].lower()
+    print('Entering {} into Neo4j'.format(network))
+    with driver.session() as session:
+        session.write_transaction(create_neo4j_network, name)
+        for struct in structures:
+            struct = struct.lower()
+            session.write_transaction(create_neo4j_struct, struct)
+            session.write_transaction(create_network_relation, struct, name)
+    print('\tEntered in {} structures.'.format(len(structures)))
+
+
+# #####################################################
+# Create connected structure graph with networks as relatons
+# def create_neo4j_struct(tx, struct)
+
+
 # Relates two structues using an arrow with netowork name
 # SOooo many relations
 def add_struct_relation(tx, struct1, struct2, network):
+    # Code in addition part
+    network = '_'.join(network.split(' '))
+    network = '_'.join(network.split('-'))
+    network = '_'.join(network.split('/'))
     qry = "MATCH (s1:Structure {name: $struct1}), (s2:Structure "
     qry += "{name: $struct2}) "
     qry += "MERGE (s1)-[r:{}]->(s2);".format(network)
@@ -104,36 +127,17 @@ def add_struct_relation(tx, struct1, struct2, network):
     tx.run(qry, struct1=struct1, struct2=struct2)
 
 
-def load_dict_neo4j_old(driver, dic):
-    structures = dic['structures']
-    name = dic['name'].lower()
-    print('Entering {} into Neo4j'.format(name))
-    with driver.session() as session:
-        session.write_transaction(create_neo4j_network, name)
-        for struct in structures:
-            struct = struct.lower()
-            session.write_transaction(create_neo4j_struct, struct)
-            session.write_transaction(create_network_relation, struct, name)
-    print('\tEntered in {} structures.'.format(len(structures)))
 
-
-# #####################################################
-# Create connected structure graph with networks as relatons
-# def create_neo4j_struct(tx, struct)
-
-def create_neo4j_struct_network(tx, *struct, network):
-   pass 
 
 def load_dict_neo4j(driver, dic):
     structures = dic['structures']
     network = dic['name'].lower()
-    print('Entering {} into Neo4j'.format(name))
-    import ipdb; ipdb.set_trace()
+    print('Entering {} into Neo4j'.format(network))
     with driver.session() as session:
         for struct in structures:
             struct = struct.lower()
             session.write_transaction(create_neo4j_struct, struct)
-            session.write_transaction(create_network_relation, struct, name)
+            # session.write_transaction(create_network_relation, struct, network)
         # Connect all structures to each other with edge
         # labeled the network
         for struct in structures:
@@ -142,14 +146,15 @@ def load_dict_neo4j(driver, dic):
             s2.remove(struct)
             for struct2 in s2:
                 struct2 = struct2.lower()
-                session.write_transaction(create_community_relation, 
-                                          struct, struct2, network
+                session.write_transaction(add_struct_relation, 
+                                          struct, struct2, network)
 
     print('\tEntered in {} structures.'.format(len(structures)))
     
 
 def create_community_relation(tx, struct, struct2, network):
-    pass    
+    tx.run("MATCH (s1: Structure {name: $struct}), (s2: Structure {name: $struct2})"
+           "MERGE (s1)-[r:$network]->(s2);", struct=struct, struct2=struct2, network=network)
 
 
 def json_load_dbs(json_file):
