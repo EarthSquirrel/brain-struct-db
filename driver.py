@@ -157,7 +157,7 @@ def clear_neo4j():
 
 # Clear both databases and set constraints on mongo unique
 def init_dbs():
-    clear_mongo()
+    # clear_mongo()
     clear_neo4j()
 
 
@@ -171,6 +171,10 @@ def rebuild_neo4j():
 
 
 if __name__ == '__main__':
+    init_dbs()
     # load_json_mongo('networks.json')
+    
+    driver = connect_neo4j()
     for data in load_json('networks.json'):
-        load_dict_neo4j(data)
+        load_dict_neo4j(driver, data)
+    driver.close()
