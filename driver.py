@@ -16,6 +16,9 @@ def load_json(file_name):
     return content
 
 
+#########################################################
+#################### MongoDB Methods ####################
+#########################################################
 # connect to mongodb
 def connect_mongo():
     client = MongoClient('localhost', 27017)
@@ -50,6 +53,10 @@ def insert_mongo(collection, data):
     except DuplicateKeyError:
         print('Failed to insert {}: already exists.'.format(data['name']))
 
+
+# ########################################################
+# ##################### Neo4j Methods ####################
+# ########################################################
 
 # Load things into both db first time from json file
 def connect_neo4j():
@@ -97,7 +104,7 @@ def add_struct_relation(tx, struct1, struct2, network):
     tx.run(qry, struct1=struct1, struct2=struct2)
 
 
-def load_dict_neo4j(driver, dic):
+def load_dict_neo4j_old(driver, dic):
     structures = dic['structures']
     name = dic['name'].lower()
     print('Entering {} into Neo4j'.format(name))
@@ -108,6 +115,41 @@ def load_dict_neo4j(driver, dic):
             session.write_transaction(create_neo4j_struct, struct)
             session.write_transaction(create_network_relation, struct, name)
     print('\tEntered in {} structures.'.format(len(structures)))
+
+
+# #####################################################
+# Create connected structure graph with networks as relatons
+# def create_neo4j_struct(tx, struct)
+
+def create_neo4j_struct_network(tx, *struct, network):
+   pass 
+
+def load_dict_neo4j(driver, dic):
+    structures = dic['structures']
+    network = dic['name'].lower()
+    print('Entering {} into Neo4j'.format(name))
+    import ipdb; ipdb.set_trace()
+    with driver.session() as session:
+        for struct in structures:
+            struct = struct.lower()
+            session.write_transaction(create_neo4j_struct, struct)
+            session.write_transaction(create_network_relation, struct, name)
+        # Connect all structures to each other with edge
+        # labeled the network
+        for struct in structures:
+            struct = struct.lower()
+            s2 = structures.copy()
+            s2.remove(struct)
+            for struct2 in s2:
+                struct2 = struct2.lower()
+                session.write_transaction(create_community_relation, 
+                                          struct, struct2, network
+
+    print('\tEntered in {} structures.'.format(len(structures)))
+    
+
+def create_community_relation(tx, struct, struct2, network):
+    pass    
 
 
 def json_load_dbs(json_file):
