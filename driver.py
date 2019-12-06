@@ -80,7 +80,7 @@ def create_network_relation(tx, struct, network):
            "MERGE (s)-[r:part_of]->(n);", struct=struct, network=network)
 
 
-def load_dict_neo4j_old(driver, dic):
+def load_dict_neo4j_networks(driver, dic):
     structures = dic['structures']
     name = dic['name'].lower()
     print('Entering {} into Neo4j'.format(network))
@@ -108,25 +108,7 @@ def add_struct_relation(tx, struct1, struct2, network):
     qry = "MATCH (s1:Structure {name: $struct1}), (s2:Structure "
     qry += "{name: $struct2}) "
     qry += "MERGE (s1)-[r:{}]->(s2);".format(network)
-    """
-    tx.run("MATCH (s1:Structure {name: $struct1}), (s2:Structure "
-           "{name: $struct2}) CREATE (s1)-[r:$network]->(s2);",
-           struct1 = struct1, struct2 = struct2, network = network)
-    """
-
-    """
-    # Code in addition part
-    name = '_'.join(dic['name'].split(' '))
-    name = '_'.join(name.split('-'))
-    for i, struct1 in enumerate(structures):
-        for j in range(i+1, len(structures)):
-            # print('{} {} {}'.format(struct1, structures[j], name))
-            session.write_transaction(add_struct_relation, struct1,
-                                      structures[j], name)
-    """
     tx.run(qry, struct1=struct1, struct2=struct2)
-
-
 
 
 def load_dict_neo4j(driver, dic):
@@ -150,11 +132,6 @@ def load_dict_neo4j(driver, dic):
                                           struct, struct2, network)
 
     print('\tEntered in {} structures.'.format(len(structures)))
-    
-
-def create_community_relation(tx, struct, struct2, network):
-    tx.run("MATCH (s1: Structure {name: $struct}), (s2: Structure {name: $struct2})"
-           "MERGE (s1)-[r:$network]->(s2);", struct=struct, struct2=struct2, network=network)
 
 
 def json_load_dbs(json_file):
