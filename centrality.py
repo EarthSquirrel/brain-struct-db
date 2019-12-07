@@ -5,6 +5,26 @@ import driver as d
 
 # Closeness Centrality pj 88
 def closeness_centrality():
+    qry = "CALL algo.closeness.harmonic.stream("
+    qry += "'MATCH (p:Structure) RETURN id(p) as id', "
+    qry += "'MATCH (n)-[]-(m) RETURN id(n) as source, id(m) as target', "
+    qry += "{graph:'cypher', write: true} "
+    qry += ") yield nodeId, centrality "
+    qry += "return algo.getNodeById(nodeId).name as structure, centrality "
+    qry += "order by centrality desc"
+    
+    driver = d.connect_neo4j()
+    vals = []
+    with driver.session() as session:
+        res = session.run(qry)
+        vals = res.values()
+        vals.reverse()  # Easier to see highest if at bottom in terminal
+        for v in vals:
+            print("{}: {:0.5f}".format(v[0], v[1]))
+    driver.close()
+
+
+def closeness_centrality_bad():
     driver = d.connect_neo4j()
     
     with driver.session() as session:
@@ -79,7 +99,24 @@ def betweenness_centrality():
     with driver.session() as session:
         res = session.run(qry)
         vals = res.values()
-        # todo: remove sorting
+        for v in vals:
+            print("{}: {:0.5f}".format(v[0], v[1]))
+
+
+def pagerank():
+    qry = "CALL algo.betweenness.stream("
+    qry += "'MATCH (p:Structure) RETURN id(p) as id', "
+    qry += "'MATCH (n)-[]-(m) RETURN id(n) as source, id(m) as target', "
+    qry += "{graph:'cypher', write: true} "
+    qry += ") yield nodeId, centrality "
+    qry += "return algo.getNodeById(nodeId).name as structure, centrality "
+    qry += "order by centrality desc"
+    
+    driver = d.connect_neo4j()
+    vals = []
+    with driver.session() as session:
+        res = session.run(qry)
+        vals = res.values()
         vals.sort(key = lambda x: x[1])
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
