@@ -21,7 +21,7 @@ def closeness_centrality():
         for i, net in enumerate(networks):
             qry = 'CALL algo.closeness.harmonic.stream("Structure", "{}") '.format(net)
             qry += 'YIELD nodeId, centrality '
-            qry += 'RETURN nodeId, algo.getNodeById(nodeId).name, centrality ORDER BY centrality DESC'
+            qry += 'RETURN nodeId, algo.getNodeById(nodeId).name, centrality'
             
             r = session.run(qry)
             vals = r.values()
@@ -79,6 +79,7 @@ def betweenness_centrality():
     with driver.session() as session:
         res = session.run(qry)
         vals = res.values()
+        # todo: remove sorting
         vals.sort(key = lambda x: x[1])
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
