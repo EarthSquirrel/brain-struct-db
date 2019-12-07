@@ -4,6 +4,7 @@ from pymongo.errors import DuplicateKeyError
 import json
 from neo4j import GraphDatabase
 import re
+import centrality as center
 
 
 def load_json(file_name):
@@ -69,7 +70,7 @@ def connect_neo4j():
 
 def create_neo4j_struct(tx, struct):
     tx.run("MERGE (s:Structure {name: $struct});", struct=struct)
-
+    # import ipdb; ipdb.set_trace()
 
 def create_neo4j_network(tx, network):
     tx.run("MERGE (n:Network {name: $network});", network=network)
@@ -107,8 +108,10 @@ def add_struct_relation(tx, struct1, struct2, network):
     network = '_'.join(network.split('/'))
     qry = "MATCH (s1:Structure {name: $struct1}), (s2:Structure "
     qry += "{name: $struct2}) "
-    qry += "MERGE (s1)-[r:{}]->(s2);".format(network)
-    tx.run(qry, struct1=struct1, struct2=struct2)
+    qry += "MERGE (s1)-[r:{}".format(network)
+    qry += "{name: $network}]->(s2);"
+    tx.run(qry, struct1=struct1, struct2=struct2, network=network)
+    
 
 
 def load_dict_neo4j(driver, dic):
@@ -128,6 +131,11 @@ def load_dict_neo4j(driver, dic):
             s2.remove(struct)
             for struct2 in s2:
                 struct2 = struct2.lower()
+                session.write_transaction(add_struct_relation, 
+                                          struct, struct2, network)
+                temp = struct
+                struct2 = struct
+                struct = temp
                 session.write_transaction(add_struct_relation, 
                                           struct, struct2, network)
 
@@ -195,10 +203,17 @@ def rebuild_neo4j():
 
 
 if __name__ == '__main__':
+    # Clear the databases
     init_dbs()
     # load_json_mongo('networks.json')
     
+    # Load database with data
     driver = connect_neo4j()
     for data in load_json('networks.json'):
         load_dict_neo4j(driver, data)
     driver.close()
+    
+    center.pagerank()
+    center.betweenness_centrality()
+    center.degree_centrality()
+    center.closeness_centrality()
