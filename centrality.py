@@ -34,3 +34,32 @@ def closeness_centrality():
             total = sum(sums[key])
             print('{}: {:0.5f}'.format(key, total))
         # import ipdb; ipdb.set_trace()
+
+
+def degree_centrality():
+    driver = d.connect_neo4j()
+    
+    with driver.session() as session:
+        result = session.run("MATCH (s:Structure) return s;")
+        # Get all the networks 
+        structs = []
+        values = result.values()
+        for data in values:
+            structs.append(data[0]['name'])
+        structs = list(set(structs))    
+        # print(structs)
+        
+        degrees = []
+        num_relations = session.run("MATCH ()-[r]-() return count(r)").values()[0][0]
+        
+        for s in structs:
+            r = session.run("MATCH (s:Structure {name: $s})-[r]-() return count(r)", 
+                            s=s)
+            vals = r.values()
+            deg = vals[0][0]
+            # print('{}: {}, {}'.format(s, deg, num_relations))  # deg/num_relations))
+            degrees.append([s, deg])
+
+    degrees.sort(key=lambda x: x[1])
+    for dd in degrees:
+        print(dd[0], ": ", dd[1])
