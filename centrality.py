@@ -53,6 +53,7 @@ def degree_centrality():
             # print('{}: {}, {}'.format(s, deg, num_relations))  # deg/num_relations))
             degrees.append([s, deg])
 
+    driver.close()
     degrees.sort(key=lambda x: x[1])
     for dd in degrees:
         print(dd[0], ": ", dd[1])
@@ -76,6 +77,7 @@ def betweenness_centrality():
         vals = res.values()
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
+    driver.close()
     print('\n')
 
 
@@ -97,4 +99,5 @@ def pagerank():
         vals.sort(key = lambda x: x[1])
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
+    driver.close()
     print('\n')
