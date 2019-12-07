@@ -69,14 +69,11 @@ def betweenness_centrality():
 
 
 def pagerank():
-    qry = "CALL algo.betweenness.stream("
-    qry += "'MATCH (p:Structure) RETURN id(p) as id', "
-    qry += "'MATCH (n)-[]-(m) RETURN id(n) as source, id(m) as target', "
-    qry += "{graph:'cypher', write: true} "
-    qry += ") yield nodeId, centrality "
-    qry += "return algo.getNodeById(nodeId).name as structure, centrality "
-    qry += "order by centrality desc"
-    
+   qry = "CALL algo.pageRank.stream('Structure', '', {iterations:20, dampingFactor:0.70}) "
+   qry += "YIELD nodeId, score "
+   qry += "RETURN algo.getNodeById(nodeId).name AS page, score "
+   qry += "ORDER BY score DESC"
+
     driver = d.connect_neo4j()
     vals = []
     with driver.session() as session:
