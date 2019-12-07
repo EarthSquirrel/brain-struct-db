@@ -5,11 +5,8 @@ import driver as d
 
 # Closeness Centrality pj 88
 def closeness_centrality():
-    qry = "CALL algo.closeness.harmonic.stream("
-    qry += "'MATCH (p:Structure) RETURN id(p) as id', "
-    qry += "'MATCH (n)-[]-(m) RETURN id(n) as source, id(m) as target', "
-    qry += "{graph:'cypher', write: true} "
-    qry += ") yield nodeId, centrality "
+    qry = "CALL algo.closeness.harmonic.stream('Structure', '')"
+    qry += "yield nodeId, centrality "
     qry += "return algo.getNodeById(nodeId).name as structure, centrality "
     qry += "order by centrality desc"
     
