@@ -51,7 +51,7 @@ def degree_centrality():
             vals = r.values()
             deg = vals[0][0]
             # print('{}: {}, {}'.format(s, deg, num_relations))  # deg/num_relations))
-            degrees.append([s, deg])
+            degrees.append([s, deg/2])
 
     driver.close()
     degrees.sort(key=lambda x: x[1])
