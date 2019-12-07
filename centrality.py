@@ -63,3 +63,22 @@ def degree_centrality():
     degrees.sort(key=lambda x: x[1])
     for dd in degrees:
         print(dd[0], ": ", dd[1])
+
+
+def betweenness_centrality():
+    qry = "CALL algo.betweenness.stream("
+    qry += "'MATCH (p:Structure) RETURN id(p) as id', "
+    qry += "'MATCH (n)-[]-(m) RETURN id(n) as source, id(m) as target', "
+    qry += "{graph:'cypher', write: true} "
+    qry += ") yield nodeId, centrality "
+    qry += "return algo.getNodeById(nodeId).name as structure, centrality "
+    qry += "order by centrality desc"
+    
+    driver = d.connect_neo4j()
+    vals = []
+    with driver.session() as session:
+        res = session.run(qry)
+        vals = res.values()
+        vals.sort(key = lambda x: x[1])
+        for v in vals:
+            print("{}: {:0.5f}".format(v[0], v[1]))
