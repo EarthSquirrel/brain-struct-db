@@ -5,6 +5,9 @@ import driver as d
 
 # Closeness Centrality pj 88
 def closeness_centrality():
+    print("********************************")
+    print("**********Closeness Centrality**")
+    print("********************************")
     qry = "CALL algo.closeness.harmonic.stream('Structure', '')"
     qry += "yield nodeId, centrality "
     qry += "return algo.getNodeById(nodeId).name as structure, centrality "
@@ -19,9 +22,14 @@ def closeness_centrality():
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
     driver.close()
+    print('\n')
 
 
 def degree_centrality():
+    print("********************************")
+    print("******degree centrality*********")
+    print("********************************")
+    
     driver = d.connect_neo4j()
     
     with driver.session() as session:
@@ -48,9 +56,14 @@ def degree_centrality():
     degrees.sort(key=lambda x: x[1])
     for dd in degrees:
         print(dd[0], ": ", dd[1])
+    print('\n')
 
 
 def betweenness_centrality():
+    print("********************************")
+    print("****Betweenness Centrality******")
+    print("********************************")
+    
     qry = "CALL algo.betweenness.stream('Structure', '') "
     qry += "yield nodeId, centrality "
     qry += "return algo.getNodeById(nodeId).name as structure, centrality "
@@ -63,9 +76,14 @@ def betweenness_centrality():
         vals = res.values()
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
+    print('\n')
 
 
 def pagerank():
+    print("********************************")
+    print("********PageRank****************")
+    print("********************************")
+
     qry = "CALL algo.pageRank.stream('Structure', '', {iterations:20, dampingFactor:0.70}) "
     qry += "YIELD nodeId, score "
     qry += "RETURN algo.getNodeById(nodeId).name AS page, score "
@@ -79,3 +97,4 @@ def pagerank():
         vals.sort(key = lambda x: x[1])
         for v in vals:
             print("{}: {:0.5f}".format(v[0], v[1]))
+    print('\n')
