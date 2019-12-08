@@ -25,15 +25,6 @@ def negate_scores(scores):
     return new
 
 
-# Dictionary to hold the algorithms
-algs = {
-    1: center.degree_centrality,
-    2: center.closeness_centrality,
-    3: center.betweenness_centrality,
-    4: center.pagerank
-}
-
-
 if __name__ == '__main__':
     # pick the speed 
     if sys.argv[1] == '0':  # slow
