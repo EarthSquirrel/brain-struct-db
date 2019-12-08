@@ -65,7 +65,7 @@ def betweenness_centrality():
     print("****Betweenness Centrality******")
     print("********************************")
     
-    qry = "CALL algo.betweenness.stream('Structure', '') "
+    qry = "CALL algo.betweenness.sampled.stream('Structure', '') "
     qry += "yield nodeId, centrality "
     qry += "return algo.getNodeById(nodeId).name as structure, centrality "
     qry += "order by centrality desc"
