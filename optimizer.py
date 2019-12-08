@@ -6,6 +6,7 @@ from neo4j import GraphDatabase
 import re
 import centrality as center
 import sys
+import random
 
 
 # scoring matrix for all the features and algs
@@ -21,8 +22,6 @@ scoring_mat = {
 def negate_scores(scores):
     ma = max(scores)
     new = [ma-x for x in scores]
-    print(scores)
-    print(new)
     return new
 
 
@@ -60,3 +59,23 @@ if __name__ == '__main__':
         for key in list(scoring_mat.keys()):
             sums[i] += scoring_mat[key][i]
     print(sums)
+
+    ma = max(sums)
+
+    alg_run = []
+    if ma == sums[0]:
+        alg_run.append(center.degree_centrality)
+    if ma == sums[1]:
+        alg_run.append(center.closeness_centrality)
+    if ma == sums[2]:
+        alg_run.append(center.betweenness_centrality)
+    if ma == sums[3]:
+        alg_run.append(center.pagerank)
+
+    print('Picking from: ', alg_run)
+    if len(alg_run) > 1:
+        alg = alg_run[random.randomint(0, len(alg_run))]
+    else:
+        alg = alg_run[0]
+    print('Running: ', alg)
+    alg()
