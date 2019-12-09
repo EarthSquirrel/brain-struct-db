@@ -102,6 +102,8 @@ def load_dict_neo4j_networks(driver, dic):
 # Relates two structues using an arrow with netowork name
 # SOooo many relations
 def add_struct_relation(tx, struct1, struct2, network):
+    if struct1 == struct2:
+        print('problem with ', struct1)
     # Code in addition part
     network = '_'.join(network.split(' '))
     network = '_'.join(network.split('-'))
@@ -133,7 +135,7 @@ def load_dict_neo4j(driver, dic):
                 struct2 = struct2.lower()
                 session.write_transaction(add_struct_relation, 
                                           struct, struct2, network)
-                temp = struct
+                temp = struct2
                 struct2 = struct
                 struct = temp
                 session.write_transaction(add_struct_relation, 
@@ -212,8 +214,9 @@ if __name__ == '__main__':
     for data in load_json('networks.json'):
         load_dict_neo4j(driver, data)
     driver.close()
-    
+    """ 
     center.pagerank()
     center.betweenness_centrality()
     center.degree_centrality()
     center.closeness_centrality()
+    """
