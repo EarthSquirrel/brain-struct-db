@@ -1,9 +1,4 @@
 # Uses conda brain-struct-db
-from pymongo import MongoClient, TEXT as mongoText
-from pymongo.errors import DuplicateKeyError
-import json
-from neo4j import GraphDatabase
-import re
 import centrality as center
 import sys
 import random
