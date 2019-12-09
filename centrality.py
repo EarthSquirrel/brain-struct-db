@@ -30,6 +30,28 @@ def degree_centrality():
     print("******degree centrality*********")
     print("********************************")
     
+    qry = "CALL algo.degree.stream('Structure', '')"
+    qry += "yield nodeId, score "
+    qry += "return algo.getNodeById(nodeId).name as structure, score "
+    qry += "order by score desc"
+    
+    driver = d.connect_neo4j()
+    vals = []
+    with driver.session() as session:
+        res = session.run(qry)
+        vals = res.values()
+        vals.reverse()  # Easier to see highest if at bottom in terminal
+        for v in vals:
+            print("{}: {}".format(v[0], v[1]))
+    driver.close()
+    print('\n')
+
+
+def degree_centrality_mine():
+    print("********************************")
+    print("******degree centrality*********")
+    print("********************************")
+    
     driver = d.connect_neo4j()
     
     with driver.session() as session:
