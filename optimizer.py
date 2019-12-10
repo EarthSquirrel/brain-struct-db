@@ -9,7 +9,7 @@ import random
 scoring_mat = {
     'fast': [2, 0, 0, 1],
     'exact': [1, 1, 0, 0], 
-    'global': [0, 1, 1, 3], 
+    'global': [0, 1, 1, 2], 
 }
 
 
@@ -72,4 +72,19 @@ if __name__ == '__main__':
     else:
         alg = alg_run[0]
     print('Running: ', alg)
-    # alg()
+    #print('\n')
+    #alg()
+    """
+    # Print statistics
+    f = scoring_mat['fast']
+    e = scoring_mat['exact']
+    g = scoring_mat['global']
+    print('      Degree Close Between PageRank')
+    print('Fast:   {}    {}     {}       {}'.format(f[0], f[1], f[2], f[3]))
+    print('Exact:  {}    {}     {}       {}'.format(e[0], e[1], e[2], e[3]))
+    print('Global: {}    {}     {}       {}'.format(g[0], g[1], g[2], g[3]))
+    print('Sums:   {}    {}     {}       {}'.format(sums[0], sums[1], sums[2], sums[3]))
+
+    print('Picking from: ', alg_run)
+    print('Ran: ', alg)
+    """
